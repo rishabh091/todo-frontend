@@ -1,0 +1,28 @@
+.app {
+    height: 100vh;
+    width: 100%;
+}
+.task-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: inherit;
+}
+.task-category {
+    border: 1px solid black;
+    border-radius: 1em;
+    width: 30%;
+    height: 80%;
+    overflow-y: auto;
+}
+.category-heading {
+    text-align: center;
+    padding: 5vh;
+    top: 0;
+    position: sticky;
+    background-color: aliceblue;
+}
+.tasks {
+    padding: 20px;
+}

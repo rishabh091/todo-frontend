@@ -1,0 +1,13 @@
+<div *ngIf="task !== null" class="task">
+    <h2 class="title">{{ task.title }}</h2>
+    <p class="description">{{ task.description }}</p>
+    <p class="createdAt">{{ task.createdAt | date:'dd:MM:yyyy' }}</p>
+
+    <div>
+        <select [(ngModel)]="task.status" class="status-select" (change)="update()">
+            <option *ngFor="let status of options" [ngValue]="status">
+                {{ status }}
+            </option>
+        </select>
+    </div>
+</div>

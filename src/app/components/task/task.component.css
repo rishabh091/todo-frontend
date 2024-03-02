@@ -1,0 +1,15 @@
+.task {
+    border-bottom: 1px solid gray;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.createdAt {
+    font-size: 0.8rem;
+    color: gray;
+    text-align: right;
+    margin-top: 15px;
+}
