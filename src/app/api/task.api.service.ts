@@ -23,4 +23,8 @@ export class TaskApiService {
   public createTask(body: CreateTaskBody) {
     return this.http.post(this.apiUrl + '/', body) as Observable<Task>;
   }
+
+  public deletedTask(id: number) {
+    return this.http.delete(this.apiUrl + '/', { params: { id } });
+  }
 }

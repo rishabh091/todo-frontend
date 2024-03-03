@@ -48,11 +48,17 @@ export class AppComponent implements OnInit {
   };
 
   public createTask() {
-    console.log(this.createForm)
-    // this.TaskApi.createTask().subscribe({
-    //   complete: () => {},
-    //   error: error => {},
-    // });
+    const payload = Object.assign({}, this.createForm.value);
+    this.TaskApi.createTask(payload).subscribe({
+      complete: () => {
+        this.createForm.reset();
+        alert('Task Created !!');
+        this.getTasks();
+      },
+      error: error => {
+        alert('Task creation failed !!');
+      },
+    });
   }
 
   public update(task: any) {
@@ -72,5 +78,15 @@ export class AppComponent implements OnInit {
         alert('Updation Failed');
       },
     });
+  }
+
+  public delete(id: number) {
+    this.TaskApi.deletedTask(id).subscribe({
+      complete: () => {
+        alert('Task Deleted !!');
+        this.getTasks();
+      },
+      error: () => { alert('Error in deletion !!') },
+    })
   }
 }

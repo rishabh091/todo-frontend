@@ -13,11 +13,17 @@ import { FormsModule } from '@angular/forms';
 export class TaskComponent {
   @Input() task: Task | null = null;
   @Output() taskChange = new EventEmitter<Task>();
+  @Output() taskDelete = new EventEmitter<number>();
 
   public options: TaskStatus[] = ['completed', 'started', 'todo'];
 
   public update() {
     if (!this.task) return;
     this.taskChange.emit(Object.assign({}, this.task));
+  }
+
+  public delete() {
+    if (!this.task) return;
+    this.taskDelete.emit(this.task.id);
   }
 }
