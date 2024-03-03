@@ -3,36 +3,57 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 import { TaskApiService } from './api/task.api.service';
-import { TaskStatus, Task, TaskParams } from './api/types/task.types';
+import { TaskStatus, Task, TaskParams, CreateTaskBody } from './api/types/task.types';
 import { TaskComponent } from './components/task/task.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TaskComponent],
+  imports: [CommonModule, RouterOutlet, TaskComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   title = 'ToDo-Frontend';
 
-  public todoTasks: Task[] = [];
-  public startedTasks: Task[] = [];
-  public completedTasks: Task[] = [];
-  public params: TaskParams = {};
-  constructor(private TaskApi: TaskApiService) {}
+  public tasks: Task[] = [];
+  public params: TaskParams = { sortBy: 'updatedAt', orderBy: 'desc', status: 'all' };
+  public options: TaskStatus[] = ['completed', 'started', 'todo'];
+  public createTaskBody: CreateTaskBody = {
+    title: '',
+    description: '',
+    status: 'todo',
+  };
+  public createForm: FormGroup;
+  constructor(private TaskApi: TaskApiService, private fb: FormBuilder) {
+    this.createForm = this.fb.group({
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      status: ['todo', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.getTasks();
   }
 
   public getTasks() {
-    this.TaskApi.getTasks(this.params).subscribe(res => {
-      this.todoTasks = res.filter(task => task.status === 'todo');
-      this.startedTasks = res.filter(task => task.status === 'started');
-      this.completedTasks = res.filter(task => task.status === 'completed');
+    const params = Object.assign({}, this.params);
+    if (params.status === 'all') delete params.status;
+    if (!params.search) delete params.search;
+    this.TaskApi.getTasks(params).subscribe(res => {
+      this.tasks = res;
     });
   };
+
+  public createTask() {
+    console.log(this.createForm)
+    // this.TaskApi.createTask().subscribe({
+    //   complete: () => {},
+    //   error: error => {},
+    // });
+  }
 
   public update(task: any) {
     const payload = {

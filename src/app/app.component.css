@@ -10,19 +10,17 @@
     height: inherit;
 }
 .task-category {
-    border: 1px solid black;
-    border-radius: 1em;
-    width: 30%;
-    height: 80%;
+    padding: 0;
+    height: 90vh;
     overflow-y: auto;
+    background-color: cornsilk;
 }
 .category-heading {
     text-align: center;
     padding: 5vh;
-    top: 0;
-    position: sticky;
+    height: fit-content;
     background-color: aliceblue;
 }
-.tasks {
-    padding: 20px;
+.submit-btn {
+    width: 100%;
 }
