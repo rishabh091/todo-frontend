@@ -17,9 +17,9 @@ export class TaskComponent {
 
   public options: TaskStatus[] = ['completed', 'started', 'todo'];
 
-  public update() {
+  public update(updateComplete = false) {
     if (!this.task) return;
-    this.taskChange.emit(Object.assign({}, this.task));
+    this.taskChange.emit(Object.assign({}, { ...this.task, updateComplete }));
   }
 
   public delete() {

@@ -1,0 +1,21 @@
+<form [formGroup]="createForm" class="mt-2" (ngSubmit)="create()">
+    <div>
+      <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="title" placeholder="Enter title.." formControlName="title" />
+    </div>
+    <div class="mt-4">
+      <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
+    </div>
+    <div class="mt-4">
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" id="status" formControlName="status">
+        <option *ngFor="let status of options" [ngValue]="status" [selected]="status === 'todo'">
+            {{ status }}
+        </option>
+      </select>
+    </div>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-success submit-btn" [disabled]="createForm.invalid">{{ btnText }}</button>
+    </div>
+  </form>
